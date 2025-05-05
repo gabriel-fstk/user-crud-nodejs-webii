@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Users List</h1>
+    <div>
+      <span>Welcome, <%= currentUser.name %></span>
+      <a href="/logout">Logout</a>
+    </div>
+  </header>
+  
+  <main>
+    <div class="actions">
+      <a href="/addUser" class="btn">Add New User</a>
+      
+      <form action="/users" method="GET" class="search-form">
+        <input type="text" name="name" value="<%= nameFilter %>" placeholder="Search by name">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+    
+    <% if (users && users.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>CPF</th>
+            <th>Profile</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(user => { %>
+            <tr>
+              <td><%= user.name %></td>
+              <td><%= user.cpf %></td>
+              <td><%= user.profile %></td>
+              <td>
+                <a href="/user/<%= user.id %>" class="btn">View</a>
+                <% if (currentUser.profile === 'ADMIN' || currentUser.id === user.id) { %>
+                  <a href="/updateUser/<%= user.id %>" class="btn">Edit</a>
+                <% } %>
+                <% if (currentUser.profile === 'ADMIN' && (currentUser.id === user.id || user.profile !== 'ADMIN')) { %>
+                  <form action="/deleteUser/<%= user.id %>?_method=DELETE" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                  </form>
+                <% } %>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      
+      <div class="pagination">
+        <% if (currentPage > 1) { %>
+          <a href="/users?page=<%= currentPage - 1 %>&name=<%= nameFilter %>" class="btn">Previous</a>
+        <% } %>
+        
+        <span>Page <%= currentPage %> of <%= totalPages %></span>
+        
+        <% if (currentPage < totalPages) { %>
+          <a href="/users?page=<%= currentPage + 1 %>&name=<%= nameFilter %>" class="btn">Next</a>
+        <% } %>
+      </div>
+    <% } else { %>
+      <p>No users found.</p>
+    <% } %>
+  </main>
+</body>
+</html>

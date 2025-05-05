@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Error</h1>
+    <a href="/">Back to Home</a>
+  </header>
+  
+  <main>
+    <div class="error-container">
+      <h2><%= message %></h2>
+      <h3><%= error.status %></h3>
+      <% if (error.stack && process.env.NODE_ENV === 'development') { %>
+        <pre><%= error.stack %></pre>
+      <% } %>
+    </div>
+  </main>
+  
+  <footer>
+    <p>© <%= new Date().getFullYear() %> Express EJS App</p>
+  </footer>
+</body>
+</html>

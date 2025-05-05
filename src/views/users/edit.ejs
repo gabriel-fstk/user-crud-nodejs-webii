@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit User</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Edit User: <%= user.name %></h1>
+    <a href="/users">Back to Users</a>
+  </header>
+
+  <main>
+    <% if (error) { %>
+      <div class="error-message">
+        <%= error %>
+      </div>
+    <% } %>
+
+    <form action="/updateUser/<%= user.id %>?_method=PUT" method="POST">
+      <input type="hidden" name="_method" value="PUT"> <!-- Emulando o PUT -->
+      <div>
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" value="<%= user.cpf %>" disabled>
+      </div>
+      
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<%= user.name %>" required>
+      </div>
+
+      <div>
+        <label for="profile">Profile:</label>
+        <input type="text" name="profile" id="profile" value="<%= user.profile %>" disabled>
+        <input type="hidden" name="profile" value="<%= user.profile %>">
+      </div>
+
+      <div>
+        <h3>Phone Numbers</h3>
+        <div id="phones">
+          <% phones.forEach((phone, index) => { %>
+            <div class="phone-entry">
+              <input type="text" name="phones[<%= index %>][number]" value="<%= phone.number %>" required>
+              <label>
+                <input type="radio" name="primary_phone" value="<%= index %>" <%= phone.is_primary ? 'checked' : '' %>> Primary
+              </label>
+              <% if (index > 0) { %>
+                <button type="button" onclick="this.parentElement.remove()">Remove</button>
+              <% } %>
+            </div>
+          <% }); %>
+        </div>
+        <button type="button" onclick="addPhone()">Add Phone</button>
+      </div>
+
+      <div>
+        <h3>Email Addresses</h3>
+        <div id="emails">
+          <% emails.forEach((email, index) => { %>
+            <div class="email-entry">
+              <input type="email" name="emails[<%= index %>][address]" value="<%= email.email %>" required>
+              <label>
+                <input type="radio" name="primary_email" value="<%= index %>" <%= email.is_primary ? 'checked' : '' %>> Primary
+              </label>
+              <% if (index > 0) { %>
+                <button type="button" onclick="this.parentElement.remove()">Remove</button>
+              <% } %>
+            </div>
+          <% }); %>
+        </div>
+        <button type="button" onclick="addEmail()">Add Email</button>
+      </div>
+
+      <button type="submit">Update User</button>
+    </form>
+  </main>
+
+  <script>
+    let phoneCount = <%= phones.length %>;
+    let emailCount = <%= emails.length %>;
+
+    function addPhone() {
+      const container = document.getElementById('phones');
+      const div = document.createElement('div');
+      div.className = 'phone-entry';
+      div.innerHTML = `
+        <input type="text" name="phones[${phoneCount}][number]" placeholder="Phone number" required>
+        <label>
+          <input type="radio" name="primary_phone" value="${phoneCount}"> Primary
+        </label>
+        <button type="button" onclick="this.parentElement.remove()">Remove</button>
+      `;
+      container.appendChild(div);
+      phoneCount++;
+    }
+
+    function addEmail() {
+      const container = document.getElementById('emails');
+      const div = document.createElement('div');
+      div.className = 'email-entry';
+      div.innerHTML = `
+        <input type="email" name="emails[${emailCount}][address]" placeholder="Email address" required>
+        <label>
+          <input type="radio" name="primary_email" value="${emailCount}"> Primary
+        </label>
+        <button type="button" onclick="this.parentElement.remove()">Remove</button>
+      `;
+      container.appendChild(div);
+      emailCount++;
+    }
+  </script>
+</body>
+</html>

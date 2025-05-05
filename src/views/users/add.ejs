@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New User</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Add New User</h1>
+    <a href="/users">Back to Users</a>
+  </header>
+
+  <main>
+    <% if (error) { %>
+      <div class="error-message">
+        <%= error %>
+      </div>
+    <% } %>
+
+    <form action="/addUser" method="POST">
+      <div>
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required>
+      </div>
+      
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+
+      <div>
+        <label for="profile">Profile:</label>
+        <select id="profile" name="profile" required>
+          <option value="ADMIN">Admin</option>
+          <option value="CLIENTE">Client</option>
+        </select>
+      </div>
+
+      <div>
+        <h3>Phone Numbers</h3>
+        <div id="phones">
+          <div class="phone-entry">
+            <input type="text" name="phones[0][number]" placeholder="Phone number" required>
+            <label>
+              <input type="radio" name="primary_phone" value="0" checked> Primary
+            </label>
+          </div>
+        </div>
+        <button type="button" onclick="addPhone()">Add Phone</button>
+      </div>
+
+      <div>
+        <h3>Email Addresses</h3>
+        <div id="emails">
+          <div class="email-entry">
+            <input type="email" name="emails[0][address]" placeholder="Email address" required>
+            <label>
+              <input type="radio" name="primary_email" value="0" checked> Primary
+            </label>
+          </div>
+        </div>
+        <button type="button" onclick="addEmail()">Add Email</button>
+      </div>
+
+      <button type="submit">Create User</button>
+    </form>
+  </main>
+
+  <script>
+    let phoneCount = 1;
+    let emailCount = 1;
+
+    function addPhone() {
+      const container = document.getElementById('phones');
+      const div = document.createElement('div');
+      div.className = 'phone-entry';
+      div.innerHTML = `
+        <input type="text" name="phones[${phoneCount}][number]" placeholder="Phone number" required>
+        <label>
+          <input type="radio" name="primary_phone" value="${phoneCount}"> Primary
+        </label>
+        <button type="button" onclick="this.parentElement.remove()">Remove</button>
+      `;
+      container.appendChild(div);
+      phoneCount++;
+    }
+
+    function addEmail() {
+      const container = document.getElementById('emails');
+      const div = document.createElement('div');
+      div.className = 'email-entry';
+      div.innerHTML = `
+        <input type="email" name="emails[${emailCount}][address]" placeholder="Email address" required>
+        <label>
+          <input type="radio" name="primary_email" value="${emailCount}"> Primary
+        </label>
+        <button type="button" onclick="this.parentElement.remove()">Remove</button>
+      `;
+      container.appendChild(div);
+      emailCount++;
+    }
+  </script>
+</body>
+</html>

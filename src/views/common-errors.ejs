@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Common EJS Errors</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Common EJS Errors</h1>
+    <a href="/">Back to Home</a>
+  </header>
+  
+  <main>
+    <h2>1. Missing Closing Tag</h2>
+    
+    <div class="example">
+      <h3>Incorrect:</h3>
+      <pre><code>&lt;%- include('partials/header') // Missing %&gt;</code></pre>
+      
+      <h3>Correct:</h3>
+      <pre><code>&lt;%- include('partials/header') %&gt;</code></pre>
+    </div>
+    
+    <h2>2. Unclosed Conditional Block</h2>
+    
+    <div class="example">
+      <h3>Incorrect:</h3>
+      <pre><code>&lt;% if (user) { %&gt;
+  &lt;h2&gt;&lt;%= user.name %&gt;&lt;/h2&gt;
+&lt;% // Missing closing brace and %&gt;</code></pre>
+      
+      <h3>Correct:</h3>
+      <pre><code>&lt;% if (user) { %&gt;
+  &lt;h2&gt;&lt;%= user.name %&gt;&lt;/h2&gt;
+&lt;% } %&gt;</code></pre>
+    </div>
+    
+    <h2>3. Incomplete Output Tag</h2>
+    
+    <div class="example">
+      <h3>Incorrect:</h3>
+      <pre><code>&lt;h2&gt;&lt;%= user.name // Missing %&gt;</code></pre>
+      
+      <h3>Correct:</h3>
+      <pre><code>&lt;h2&gt;&lt;%= user.name %&gt;</code></pre>
+    </div>
+    
+    <h2>4. Incorrect Include Syntax</h2>
+    
+    <div class="example">
+      <h3>Incorrect:</h3>
+      <pre><code>&lt;%- include partials/header %&gt; // Missing parentheses</code></pre>
+      
+      <h3>Correct:</h3>
+      <pre><code>&lt;%- include('partials/header') %&gt;</code></pre>
+    </div>
+    
+    <h2>5. Mixing JavaScript and HTML Without Proper Tags</h2>
+    
+    <div class="example">
+      <h3>Incorrect:</h3>
+      <pre><code>&lt;% for(let i=0; i&lt;items.length; i++) {
+  &lt;li&gt;&lt;%= items[i] %&gt;&lt;/li&gt; // HTML inside &lt;% %&gt; block
+} %&gt;</code></pre>
+      
+      <h3>Correct:</h3>
+      <pre><code>&lt;% for(let i=0; i&lt;items.length; i++) { %&gt;
+  &lt;li&gt;&lt;%= items[i] %&gt;&lt;/li&gt;
+&lt;% } %&gt;</code></pre>
+    </div>
+  </main>
+  
+  <footer>
+    <p>© <%= new Date().getFullYear() %> Express EJS App</p>
+  </footer>
+</body>
+</html>

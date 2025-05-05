@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>
+      <%= title %>
+    </h1>
+    <a href="/users">Back to Users</a>
+  </header>
+
+  <main>
+    <div class="user-details">
+      <h2>
+        <%= user.name %>
+      </h2>
+      <p><strong>ID:</strong>
+        <%= user.id %>
+      </p>
+      <p><strong>Emails:</strong></p>
+      <ul>
+        <% if (emails && emails.length> 0) { %>
+          <% emails.forEach(email=> { %>
+            <li>
+              <%= email.email %>
+                <% if (email.isPrimary) { %>
+                  <strong>(Primary)</strong>
+                  <% } %>
+            </li>
+            <% }); %>
+              <% } else { %>
+                <li>No emails found.</li>
+                <% } %>
+      </ul>
+    </div>
+
+    <div class="actions">
+      <a href="/users/<%= user.id %>/edit" class="btn">Edit</a>
+      <%- include('../partials/delete-form', { url: `/users/${user.id}` }) %>
+    </div>
+  </main>
+
+  <footer>
+    <p>© <%= new Date().getFullYear() %> Express EJS App</p>
+  </footer>
+</body>
+
+</html>
