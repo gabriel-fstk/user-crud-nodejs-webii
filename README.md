@@ -18,59 +18,59 @@ A Node.js application for managing users with authentication, built using Expres
 
 ```bash
 USER-CRUD-NODEJS-WEBII/
-?
-??? public/
-?   ??? css/
-?       ??? style.css                  # Global application styles
-?
-??? src/
-?   ??? config/
-?   ?   ??? database.js                # SQLite database configuration
-?   ?   ??? database.sqlite            # SQLite database file
-?   ?
-?   ??? controllers/                   # Route controllers
-?   ?   ??? auth.controller.js
-?   ?   ??? email.controller.js
-?   ?   ??? phone.controller.js
-?   ?   ??? user.controller.js
-?   ?
-?   ??? middlewares/
-?   ?   ??? auth.middleware.js         # Auth and permission middleware
-?   ?
-?   ??? models/                        # Data models and DAOs
-?   ?   ??? email.dao.js
-?   ?   ??? email.model.js
-?   ?   ??? phone.dao.js
-?   ?   ??? phone.model.js
-?   ?   ??? user.dao.js
-?   ?   ??? user.model.js
-?   ?
-?   ??? routes/
-?       ??? auth.routes.js
-?       ??? user.routes.js
-?
-??? views/
-?   ??? partials/                      # Reusable components
-?   ??? users/                         # User-related views
-?       ??? add.ejs                    # User creation form
-?       ??? edit.ejs                   # User edit form
-?       ??? index.ejs                  # User list view
-?       ??? new.ejs                    # Alternate creation page
-?       ??? show.ejs                   # User details page
-?   ??? common-errors.ejs              # Common error template
-?   ??? error.ejs                      # Generic error page
-?   ??? index.ejs                      # Home page
-?   ??? login.ejs                      # Login page
-?
-??? .gitignore                         # Git ignore rules
-??? app.js                             # Express app initialization
-??? index.js                           # Main entry point
-??? LICENSE                            # Project license
-??? package.json                       # Project dependencies and scripts
-??? package-lock.json                  # Dependency lock file
-??? README.md                          # Project documentation
-??? sessions                           # Saved session files
-??? sessions.db                        # Session database file
+│
+├── public/
+│   └── css/
+│       └── style.css                  # Global application styles
+│
+├── src/
+│   ├── config/
+│   │   ├── database.js                # SQLite database configuration
+│   │   └── database.sqlite            # SQLite database file
+│   │
+│   ├── controllers/                   # Route controllers
+│   │   ├── auth.controller.js
+│   │   ├── email.controller.js
+│   │   ├── phone.controller.js
+│   │   └── user.controller.js
+│   │
+│   ├── middlewares/
+│   │   └── auth.middleware.js         # Auth and permission middleware
+│   │
+│   ├── models/                        # Data models and DAOs
+│   │   ├── email.dao.js
+│   │   ├── email.model.js
+│   │   ├── phone.dao.js
+│   │   ├── phone.model.js
+│   │   ├── user.dao.js
+│   │   └── user.model.js
+│   │
+│   └── routes/
+│       ├── auth.routes.js
+│       └── user.routes.js
+│
+├── views/
+│   ├── partials/                      # Reusable components
+│   └── users/                         # User-related views
+│       ├── add.ejs                    # User creation form
+│       ├── edit.ejs                   # User edit form
+│       ├── index.ejs                  # User list view
+│       ├── new.ejs                    # Alternate creation page
+│       ├── show.ejs                   # User details page
+│   ├── common-errors.ejs              # Common error template
+│   ├── error.ejs                      # Generic error page
+│   ├── index.ejs                      # Home page
+│   └── login.ejs                      # Login page
+│
+├── .gitignore                         # Git ignore rules
+├── app.js                             # Express app initialization
+├── index.js                           # Main entry point
+├── LICENSE                            # Project license
+├── package.json                       # Project dependencies and scripts
+├── package-lock.json                  # Dependency lock file
+├── README.md                          # Project documentation
+├── sessions                           # Saved session data
+└── sessions.db                        # Session database file
 ```
 
 ## Security Features
