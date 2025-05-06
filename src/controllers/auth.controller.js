@@ -18,7 +18,7 @@ const authController = {
     if (!validPassword) 
       return res.render("login", { error: "Invalid password" });
 
-    // Armazena o usuário na sessão
+    // Armazena o usuï¿½rio na sessï¿½o
     req.session.user = user;
 
     res.redirect("/users");

@@ -5,7 +5,7 @@ const userDAO = {
   findAll(page, limit, filter) {
     const offset = (page - 1) * limit;
     const query = `
-      SELECT * FROM users
+      SELECT users.id, users.name, users.cpf, users.profile FROM users
       ${filter ? "WHERE name LIKE ?" : ""}
       LIMIT ? OFFSET ?;
     `;
@@ -56,7 +56,7 @@ const userDAO = {
         user.password,
         user.profile
       );
-
+      console.error(user)
       return { userId: result.lastInsertRowid };
     } catch (err) {
       if (
@@ -81,7 +81,7 @@ const userDAO = {
   delete(id) {
     const query = "DELETE FROM users WHERE id = ?;";
     const result = db.prepare(query).run(id);
-
+    
     if (result.changes === 0) {
       throw new Error("User not found.");
     }

@@ -50,6 +50,7 @@ const userController = {
   addUser: (req, res) => {
     try {
       let {
+        id,
         cpf,
         name,
         password,
@@ -64,7 +65,7 @@ const userController = {
         return res.render("users/add", { error: "All fields are required." });
       }
 
-      // Tratamento para inputs únicos virem como objeto
+      // Tratamento para inputs ï¿½nicos virem como objeto
       if (phones && !Array.isArray(phones)) phones = [phones];
       if (emails && !Array.isArray(emails)) emails = [emails];
 
@@ -81,15 +82,15 @@ const userController = {
       }
 
       const hashedPassword = bcrypt.hashSync(password, 10);
-      const user = new User(cpf, name, hashedPassword, profile);
-
+      const user = new User(id, cpf, name, hashedPassword, profile);
+      
       let result;
       try {
         result = userDAO.insert(user);
       } catch (insertErr) {
         return res.render("users/add", { error: insertErr.message });
       }
-
+      
       const userId = result.userId;
 
       phones.forEach((phone, index) => {
@@ -187,8 +188,8 @@ const userController = {
 
   deleteUser: (req, res) => {
     const userId = req.params.id;
-
-    // Telefones e e-mails serão excluídos automaticamente pelo ON DELETE CASCADE
+    
+    // Telefones e e-mails serï¿½o excluï¿½dos automaticamente pelo ON DELETE CASCADE
     userDAO.delete(userId);
 
     res.redirect("/users");

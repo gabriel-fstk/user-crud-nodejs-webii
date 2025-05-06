@@ -14,6 +14,7 @@ const phoneDAO = {
   insert(phone) {
     const query =
       "INSERT INTO phones (user_id, number, is_primary) VALUES (?, ?, ?);";
+
     const result = db
       .prepare(query)
       .run(phone.userId, phone.number, phone.isPrimary);
